@@ -10,6 +10,8 @@ class TheTwelve_Mailgun_ApiGatewayFactoryTest
         $client = $this->getHttpClient();
         $user = 'api';
         $key = 'XDERFVGTYHGHYUJNMKJU';
+        $version = 'v2';
+        $endpointUri = 'https://api.mailgun.net';
 
         $factory = new \TheTwelve\Mailgun\ApiGatewayFactory($client);
         $factory->setApiCredentials($user, $key);
@@ -17,6 +19,8 @@ class TheTwelve_Mailgun_ApiGatewayFactoryTest
         $this->assertAttributeEquals($client, 'httpClient', $factory);
         $this->assertAttributeEquals($user, 'apiUser', $factory);
         $this->assertAttributeEquals($key, 'apiKey', $factory);
+        $this->assertAttributeEquals($version, 'version', $factory);
+        $this->assertAttributeEquals($endpointUri, 'endpointUri', $factory);
 
     }
 
