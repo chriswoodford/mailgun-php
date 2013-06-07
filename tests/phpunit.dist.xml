@@ -1,0 +1,21 @@
+<phpunit bootstrap="./bootstrap.php">
+
+    <php>
+        <includePath></includePath>
+        <get name="apiUser" value=""/>
+        <get name="apiKey" value=""/>
+    </php>
+        
+    <testsuite name="API Gateway Factory Test Suite">
+        <file>./lib/TheTwelve/Mailgun/ApiGatewayFactoryTest.php</file>
+    </testsuite>
+
+    <testsuite name="Endpoint Test Suite">
+        <file>./lib/TheTwelve/Mailgun/EndpointGatewayTest.php</file>
+    </testsuite>
+
+    <testsuite name="Messages Test Suite">
+        <file>./lib/TheTwelve/Mailgun/MessagesGatewayTest.php</file>
+    </testsuite>
+    
+</phpunit>
