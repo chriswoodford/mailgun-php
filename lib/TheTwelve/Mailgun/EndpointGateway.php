@@ -73,10 +73,10 @@ class EndpointGateway
 
         switch ($method) {
             case HttpClient::GET:
-                $response = json_decode($this->httpClient->get($uri, $resource, $params));
+                $response = $this->httpClient->get($uri, $resource, $params);
                 break;
             case HttpClient::POST:
-                $response = json_decode($this->httpClient->post($uri, $resource, $params));
+                $response = $this->httpClient->post($uri, $resource, $params);
                 break;
             default:
                 throw new \RuntimeException('Currently only HTTP methods "GET" and "POST" are supported.');
