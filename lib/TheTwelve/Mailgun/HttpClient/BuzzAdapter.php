@@ -85,10 +85,10 @@ class BuzzAdapter implements \TheTwelve\Mailgun\HttpClient
 
     }
 
-    protected function createRequest($method, $resource = '/', $host = null)
+    protected function createRequest($method, $resource = '', $host = null)
     {
 
-        return new \Buzz\Message\Request($method, $resource, $host);
+        return new \Buzz\Message\Request($method, '/' . $resource, $host);
 
     }
 
