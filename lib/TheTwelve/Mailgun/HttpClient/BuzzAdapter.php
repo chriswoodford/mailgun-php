@@ -12,13 +12,21 @@ class BuzzAdapter implements \TheTwelve\Mailgun\HttpClient
     protected $credentials;
 
     /**
+     * @var string
+     * @see http://curl.haxx.se/docs/caextract.html
+     */
+    protected $certificatePath;
+
+    /**
      * initialize the adapter
      * @param \Buzz\Browser $client
+     * @param string $certificatePath
      */
-    public function __construct(\Buzz\Client\Curl $client)
+    public function __construct(\Buzz\Client\Curl $client, $certificatePath = null)
     {
 
         $this->client = $client;
+        $this->certificatePath = $certificatePath;
 
     }
 
@@ -97,6 +105,7 @@ class BuzzAdapter implements \TheTwelve\Mailgun\HttpClient
         return array(
             CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
             CURLOPT_USERPWD => $this->credentials,
+            CURLOPT_CAINFO => $this->certificatePath,
         );
 
     }
