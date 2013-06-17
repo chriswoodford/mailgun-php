@@ -40,8 +40,12 @@ class BuzzAdapter implements \TheTwelve\Mailgun\HttpClient
     public function get($uri, $resource, array $params = array())
     {
 
-        $uri = rtrim($uri, '?') . '?' . http_build_query($params);
-        $response = $this->client->get($uri, $this->headers);
+        $request = $this->createRequest(self::POST, $resource, $uri);
+        $request->setContent($params);
+
+        $response = $this->createResponse();
+
+        $this->client->send($request, $response, $this->getOptions());
 
         if ($response->isOk()) {
             return $response->getContent();
@@ -59,15 +63,11 @@ class BuzzAdapter implements \TheTwelve\Mailgun\HttpClient
     {
 
         $request = $this->createRequest(self::POST, $resource, $uri);
+        $request->setContent($params);
+
         $response = $this->createResponse();
 
-        $options = array(
-            CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
-            CURLOPT_USERPSD => $this->credentials,
-
-        );
-
-        $this->client->send($request, $response, $options);
+        $this->client->send($request, $response, $this->getOptions());
 
         if ($response->isOk()) {
             return $response->getContent();
@@ -88,6 +88,16 @@ class BuzzAdapter implements \TheTwelve\Mailgun\HttpClient
     {
 
         return new \Buzz\Message\Response();
+
+    }
+
+    protected function getOptions()
+    {
+
+        return array(
+            CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
+            CURLOPT_USERPSD => $this->credentials,
+        );
 
     }
 
