@@ -2,24 +2,39 @@
 
 namespace TheTwelve\Mailgun;
 
+use Buzz\Exception\RuntimeException;
+
+use TheTwelve\Mailgun\Message;
+
 class MessagesGateway extends EndpointGateway
 {
 
     /**
-     * send an email
-     * @param Message $email
+     * create a new email message
+     * @return Message\EmailMessage
      */
-    public function send(Message $email)
+    public function createMessage()
     {
 
-        $params = array(
-        	'from' => '',
-			'to' => '',
-			'subject' => '',
-			'text' => '',
-        );
+        return new \TheTwelve\Mailgun\Message\EmailMessage();
 
-        $this->makeApiRequest('messages', $params, HttpClient::POST);
+    }
+
+    /**
+     * send an email
+     * @param Message\EmailMessage $message
+     */
+    public function send(Message\EmailMessage $message)
+    {
+
+        $params = $message->toArray();
+        $response = $this->makeApiRequest('messages', $params, HttpClient::POST);
+
+        if ($response instanceof \stdClass) {
+            return $response->message;
+        }
+
+        throw new \RuntimeException('Unable to queue message via mailgun');
 
     }
 

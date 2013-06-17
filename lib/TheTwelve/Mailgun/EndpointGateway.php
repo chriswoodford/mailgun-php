@@ -81,7 +81,7 @@ class EndpointGateway
                 throw new \RuntimeException('Currently only HTTP methods "GET" and "POST" are supported.');
         }
 
-        return $response;
+        return json_decode($response);
 
     }
 
