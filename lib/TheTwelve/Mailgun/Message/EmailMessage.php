@@ -105,7 +105,7 @@ class EmailMessage
     public function subject($subject)
     {
 
-        $this->subject = subject;
+        $this->subject = $subject;
         return $this;
     }
 
