@@ -5,7 +5,11 @@ namespace TheTwelve\Mailgun;
 class MessagesGateway extends EndpointGateway
 {
 
-    public function send()
+    /**
+     * send an email
+     * @param Message $email
+     */
+    public function send(Message $email)
     {
 
         $params = array(

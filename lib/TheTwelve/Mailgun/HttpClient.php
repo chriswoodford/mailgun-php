@@ -24,4 +24,10 @@ interface HttpClient
      */
     public function post($uri, array $params = array());
 
+    /**
+     * set the basic authentication credentials
+     * @param string $credentials
+     */
+    public function setBasicAuth($credentials);
+
 }

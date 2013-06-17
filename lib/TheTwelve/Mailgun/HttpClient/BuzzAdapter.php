@@ -8,6 +8,9 @@ class BuzzAdapter implements \TheTwelve\Mailgun\HttpClient
     /** @var \Buzz\Browser */
     protected $client;
 
+    /** @var array */
+    protected $headers;
+
     /**
      * initialize the adapter
      * @param \Buzz\Browser $client
@@ -16,6 +19,18 @@ class BuzzAdapter implements \TheTwelve\Mailgun\HttpClient
     {
 
         $this->client = $client;
+        $this->headers = array();
+
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see TheTwelve\Mailgun.HttpClient::setBasicAuth()
+     */
+    public function setBasicAuth($credentials)
+    {
+
+        $this->headers['Authorization'] = "Basic " . base64_encode($credentials);
 
     }
 
@@ -27,7 +42,7 @@ class BuzzAdapter implements \TheTwelve\Mailgun\HttpClient
     {
 
         $uri = rtrim($uri, '?') . '?' . http_build_query($params);
-        $response = $this->client->get($uri);
+        $response = $this->client->get($uri, $this->headers);
 
         if ($response->isOk()) {
             return $response->getContent();
@@ -44,7 +59,13 @@ class BuzzAdapter implements \TheTwelve\Mailgun\HttpClient
     public function post($uri, array $params = array())
     {
 
-        //$response = $this->client->post($uri);
+        $response = $this->client->post($uri, $this->headers, http_build_query($params));
+
+        if ($response->isOk()) {
+            return $response->getContent();
+        }
+
+        return null;
 
     }
 
