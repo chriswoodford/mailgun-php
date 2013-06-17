@@ -66,16 +66,17 @@ class EndpointGateway
     protected function makeApiRequest($resource, array $params = array(), $method = 'GET')
     {
 
-        $uri = $this->requestUri . '/' . ltrim($resource, '/');
+        $resource = ltrim($resource, '/');
+        $uri = rtrim($this->requestUri, '/');
 
         $this->httpClient->setBasicAuth($this->apiUser . ':' . $this->apiKey);
 
         switch ($method) {
             case HttpClient::GET:
-                $response = json_decode($this->httpClient->get($uri, $params));
+                $response = json_decode($this->httpClient->get($uri, $resource, $params));
                 break;
             case HttpClient::POST:
-                $response = json_decode($this->httpClient->post($uri, $params));
+                $response = json_decode($this->httpClient->post($uri, $resource, $params));
                 break;
             default:
                 throw new \RuntimeException('Currently only HTTP methods "GET" and "POST" are supported.');
