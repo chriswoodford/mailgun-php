@@ -96,7 +96,7 @@ class BuzzAdapter implements \TheTwelve\Mailgun\HttpClient
 
         return array(
             CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
-            CURLOPT_USERPSD => $this->credentials,
+            CURLOPT_USERPWD => $this->credentials,
         );
 
     }
