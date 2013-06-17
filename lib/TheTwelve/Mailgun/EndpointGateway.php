@@ -69,7 +69,7 @@ class EndpointGateway
         $resource = ltrim($resource, '/');
         $uri = rtrim($this->requestUri, '/');
 
-        $this->httpClient->setBasicAuth($this->apiUser . ':' . $this->apiKey);
+        $this->httpClient->setBasicAuth($this->apiUser, $this->apiKey);
 
         switch ($method) {
             case HttpClient::GET:
