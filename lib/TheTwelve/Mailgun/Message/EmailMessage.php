@@ -42,11 +42,11 @@ class EmailMessage
         );
 
         if (!empty($this->cc)) {
-            $values['cc'] = join(',', $this->to);
+            $values['cc'] = join(',', $this->cc);
         }
 
         if (!empty($this->bcc)) {
-            $values['bcc'] = join(',', $this->to);
+            $values['bcc'] = join(',', $this->bcc);
         }
 
         if ($this->subject) {
@@ -93,6 +93,32 @@ class EmailMessage
     {
 
         $this->to[] = $emailAddress;
+        return $this;
+
+    }
+
+    /**
+     * add a cc receipient
+     * @param string $emailAddress
+     * @return EmailMessage
+     */
+    public function cc($emailAddress)
+    {
+
+        $this->cc[] = $emailAddress;
+        return $this;
+
+    }
+
+    /**
+     * add a bcc receipient
+     * @param string $emailAddress
+     * @return EmailMessage
+     */
+    public function bcc($emailAddress)
+    {
+
+        $this->bcc[] = $emailAddress;
         return $this;
 
     }
